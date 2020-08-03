@@ -155,7 +155,6 @@ public class PlayerController : MonoBehaviour
         }
         else if(collision.gameObject.layer == 12)
         {
-            Debug.Log("Called");
             collision.gameObject.GetComponent<MovingPlatform>().PlayerIsOnPlatform(false);
         }
     }

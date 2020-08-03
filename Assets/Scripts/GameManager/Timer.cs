@@ -11,10 +11,12 @@ public class Timer : MonoBehaviour
 
     private GameObject playerController;
     private ObjectManager objectManager;
+    private OneSecondTimer oneSecondTimer;
 
     private void Start()
     {
         timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<Text>();
+        oneSecondTimer = FindObjectOfType<OneSecondTimer>();
         objectManager = FindObjectOfType<ObjectManager>();
 
         // Gets the starting position of the player. This is where they will reappear after 5 secs.
@@ -72,6 +74,8 @@ public class Timer : MonoBehaviour
     // The second before this round begins
     private void NewLevelSetup()
     {
+        oneSecondTimer.StartOneSecondTimer();
+
         timerNum = 6;
         timerText.text = "5";
 
