@@ -9,7 +9,6 @@ public class ObjectManager : MonoBehaviour
 
     private MovingPlatform[] allMovingPlatforms;
 
-
     private void Start()
     {
         allMovingPlatforms = FindObjectsOfType<MovingPlatform>();

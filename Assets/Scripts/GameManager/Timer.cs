@@ -77,11 +77,16 @@ public class Timer : MonoBehaviour
         oneSecondTimer.StartOneSecondTimer();
 
         timerNum = 6;
-        timerText.text = "5";
+        timerText.text = "READY";
 
         PlayerController.SetCanMove(false);
         CloneMovement.SetCanMove(false);
 
         InvokeRepeating("CountDown", 1, 1);
+    }
+
+    public void StopTimer()
+    {
+        CancelInvoke();
     }
 }

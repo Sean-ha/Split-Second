@@ -7,7 +7,7 @@ public class OneSecondTimer : MonoBehaviour
 {
     private Image timerImage;
 
-    void Start()
+    void Awake()
     {
         timerImage = GetComponent<Image>();
         timerImage.enabled = false;

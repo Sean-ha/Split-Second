@@ -6,17 +6,20 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed;
     public float jumpForce;
+    public float jumpLowForce;
     public LayerMask whatIsGround;
 
     private Rigidbody2D rigidBody;
     private Transform overlapBoxTransform;
     private GameObject clonePrefab;
     private ParticleSystem playerParticles;
+    private ParticleSystem victoryParticles;
     private Timer timer;
 
     private static bool canMove;
     private bool isJumping;
     private bool isMoving;
+    private bool isPaused;
 
     private float jumpHelpTimer;
 
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
         positions = new List<Vector3>();
         overlapBoxTransform = transform.Find("BoxOverlap");
         playerParticles = transform.Find("PlayerParticles").GetComponent<ParticleSystem>();
+        victoryParticles = transform.Find("VictoryParticles").GetComponent<ParticleSystem>();
 
         jumpHelpTimer = 0.07f;
     }
@@ -49,17 +53,38 @@ public class PlayerController : MonoBehaviour
         {
             float horizontalDirection = Input.GetAxisRaw("Horizontal");
 
-            if(IsGrounded() || (!isJumping && jumpHelpTimer > 0))
+            bool grounded = IsGrounded();
+
+            if(grounded || (!isJumping && jumpHelpTimer > 0))
             {
                 CheckJump();
+            }
+            if(!grounded)
+            {
+                CheckCancelJump();
             }
 
             rigidBody.velocity = new Vector2(horizontalDirection * movementSpeed, rigidBody.velocity.y);
 
-            // If the player presses R, it automatically starts a new round
-            if (Input.GetKeyDown(KeyCode.R))
+            // If the user presses escape, it pauses the game.
+            if(Input.GetKeyDown(KeyCode.Escape))
             {
-                positions.Add(new Vector3(-20, 0, 0));
+                if(!isPaused)
+                {
+                    Time.timeScale = 0;
+                    isPaused = true;
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                    isPaused = false;
+                }
+            }
+
+            // If the player presses R, it automatically starts a new round
+            if (Input.GetKeyDown(KeyCode.R) && !isPaused)
+            {
+                positions.Add(new Vector3(-100, 0, 0));
                 timer.RestartLevelNewClone();
             }
         }
@@ -68,7 +93,7 @@ public class PlayerController : MonoBehaviour
     // Checks if the user is grounded. Called every frame.
     private bool IsGrounded()
     {
-        Collider2D overlap = Physics2D.OverlapBox(overlapBoxTransform.position, new Vector2(0.4f, 0.02f), 0f, 
+        Collider2D overlap = Physics2D.OverlapBox(overlapBoxTransform.position, new Vector2(0.25f, 0.02f), 0f, 
             whatIsGround);
 
         if(overlap != null)
@@ -91,6 +116,18 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = true;
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
+        }
+    }
+    
+    public void CheckCancelJump()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+            if (rigidBody.velocity.y > jumpLowForce)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpLowForce);
+            }
         }
     }
 
@@ -128,12 +165,25 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Portal"))
         {
+            canMove = false;
+            rigidBody.velocity = Vector2.zero;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            timer.StopTimer();
+            victoryParticles.Play();
+
             // Win, unlock the next level
+            collision.gameObject.GetComponent<Portal>().EnterPortal();
         }
         // Moving platform
-        if (collision.gameObject.layer == 12)
+        else if (collision.gameObject.layer == 12)
         {
             collision.gameObject.GetComponent<MovingPlatform>().PlayerIsOnPlatform(true);
+        }
+        // Any object that kills you
+        else if(collision.gameObject.layer == 13)
+        {
+            positions.Add(new Vector3(-100, 0, 0));
+            timer.RestartLevelNewClone();
         }
     }
 
