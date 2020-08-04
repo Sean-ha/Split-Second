@@ -33,5 +33,10 @@ public class OneSecondTimer : MonoBehaviour
             yield return null;
         }
         timerImage.enabled = false;
+
+        PlayerController.SetCanMove(true);
+        PlayerController.SetFirstMove(false);
+
+        CloneMovement.SetCanMove(false);
     }
 }

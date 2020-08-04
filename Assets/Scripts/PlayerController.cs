@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     private bool isMoving;
     public static bool isPaused;
+    private static bool doneFirstMove;
 
     private float jumpHelpTimer;
 
@@ -62,6 +63,15 @@ public class PlayerController : MonoBehaviour
         if(canMove)
         {
             float horizontalDirection = Input.GetAxisRaw("Horizontal");
+
+            if(horizontalDirection != 0)
+            {
+                if (!doneFirstMove)
+                {
+                    doneFirstMove = true;
+                    timer.BeginCountDown();
+                }
+            }
 
             bool grounded = IsGrounded();
 
@@ -125,6 +135,11 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            if(!doneFirstMove)
+            {
+                doneFirstMove = true;
+                timer.BeginCountDown();
+            }
             isJumping = true;
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
         }
@@ -150,6 +165,11 @@ public class PlayerController : MonoBehaviour
     public static void SetCanMove(bool value)
     {
         canMove = value;
+    }
+
+    public static void SetFirstMove(bool value)
+    {
+        doneFirstMove = value;
     }
 
     public void ResetPlayer(Vector3 initialPosition)

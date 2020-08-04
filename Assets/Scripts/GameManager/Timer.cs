@@ -77,15 +77,18 @@ public class Timer : MonoBehaviour
     // The second before this round begins
     private void NewLevelSetup()
     {
+        PlayerController.SetCanMove(false);
+        CloneMovement.SetCanMove(false);
+
         oneSecondTimer.StartOneSecondTimer();
 
         timerNum = 6;
         timerText.text = "READY";
+    }
 
-        PlayerController.SetCanMove(false);
-        CloneMovement.SetCanMove(false);
-
-        InvokeRepeating("CountDown", 1, 1);
+    public void BeginCountDown()
+    {
+        InvokeRepeating("CountDown", 0, 1);
     }
 
     public void StopTimer()
