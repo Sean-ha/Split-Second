@@ -15,21 +15,31 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem playerParticles;
     private ParticleSystem victoryParticles;
     private Timer timer;
+    private GameObject pausePanel;
+    private CameraShake cameraShaker;
+    private PostProcessing postProcessor;
 
     private static bool canMove;
     private bool isJumping;
     private bool isMoving;
-    private bool isPaused;
+    public static bool isPaused;
 
     private float jumpHelpTimer;
 
     private List<Vector3> positions;
+
+    private void Awake()
+    {
+        pausePanel = FindObjectOfType<PausePanel>().gameObject;
+    }
 
     void Start()
     {
         clonePrefab = Resources.Load<GameObject>("Prefabs/ClonePrefab");
         rigidBody = GetComponent<Rigidbody2D>();
         timer = FindObjectOfType<Timer>();
+        cameraShaker = FindObjectOfType<CameraShake>();
+        postProcessor = FindObjectOfType<PostProcessing>();
 
         positions = new List<Vector3>();
         overlapBoxTransform = transform.Find("BoxOverlap");
@@ -66,26 +76,27 @@ public class PlayerController : MonoBehaviour
 
             rigidBody.velocity = new Vector2(horizontalDirection * movementSpeed, rigidBody.velocity.y);
 
-            // If the user presses escape, it pauses the game.
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                if(!isPaused)
-                {
-                    Time.timeScale = 0;
-                    isPaused = true;
-                }
-                else
-                {
-                    Time.timeScale = 1;
-                    isPaused = false;
-                }
-            }
-
             // If the player presses R, it automatically starts a new round
             if (Input.GetKeyDown(KeyCode.R) && !isPaused)
             {
                 positions.Add(new Vector3(-100, 0, 0));
-                timer.RestartLevelNewClone();
+                timer.RestartLevelNewClone(false);
+            }
+        }
+        // If the user presses escape, it pauses the game.
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isPaused)
+            {
+                pausePanel.SetActive(true);
+                Time.timeScale = 0;
+                isPaused = true;
+            }
+            else
+            {
+                pausePanel.SetActive(false);
+                Time.timeScale = 1;
+                isPaused = false;
             }
         }
     }
@@ -152,7 +163,9 @@ public class PlayerController : MonoBehaviour
         transform.position = initialPosition;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-        playerParticles.Play();        
+        playerParticles.Play();
+        cameraShaker.ShakeCamera(0.2f, .15f);
+        postProcessor.BendScreen(0.2f);
     }
 
     public void CreateClone(Vector3 initialPosition)
@@ -167,9 +180,14 @@ public class PlayerController : MonoBehaviour
         {
             canMove = false;
             rigidBody.velocity = Vector2.zero;
+            rigidBody.isKinematic = true;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             timer.StopTimer();
             victoryParticles.Play();
+
+            cameraShaker.ShakeCamera(.75f, .15f);
+            postProcessor.BendScreen(.75f);
+            postProcessor.LensDistortion(1);
 
             // Win, unlock the next level
             collision.gameObject.GetComponent<Portal>().EnterPortal();
@@ -183,7 +201,7 @@ public class PlayerController : MonoBehaviour
         else if(collision.gameObject.layer == 13)
         {
             positions.Add(new Vector3(-100, 0, 0));
-            timer.RestartLevelNewClone();
+            timer.RestartLevelNewClone(false);
         }
     }
 

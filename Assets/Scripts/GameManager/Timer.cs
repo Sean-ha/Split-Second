@@ -43,13 +43,13 @@ public class Timer : MonoBehaviour
 
         if(timerNum == 0)
         {
-            RestartLevelNewClone();
+            RestartLevelNewClone(true);
         }
     }
 
     // Called when the 5 seconds are up. Moves the player back to the starting location and spawns a new clone
     // That copies the previous life's movement.
-    public void RestartLevelNewClone()
+    public void RestartLevelNewClone(bool withClone)
     {
         CancelInvoke();
 
@@ -60,7 +60,10 @@ public class Timer : MonoBehaviour
             clone.RestartClone(initialPosition);
         }
 
-        playerController.GetComponent<PlayerController>().CreateClone(initialPosition);
+        if(withClone)
+        {
+            playerController.GetComponent<PlayerController>().CreateClone(initialPosition);
+        }
 
         // Places player at initial position and reverts all velocity to zero
         playerController.GetComponent<PlayerController>().ResetPlayer(initialPosition);

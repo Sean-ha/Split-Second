@@ -4919,7 +4919,7 @@ MonoBehaviour:
   jumpLowForce: 10
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4352
+    m_Bits: 20736
 --- !u!61 &5110765472000403109
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5063,9 +5063,9 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.6
   m_Color: {r: 0, g: 0.5688939, b: 1, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 0.5
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 3d8eb10a00000000c1316eb36b513e4c
+  m_ApplyToSortingLayers: 00000000c1316eb36b513e4c3d8eb10a
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 1
   m_LightOrder: 0
