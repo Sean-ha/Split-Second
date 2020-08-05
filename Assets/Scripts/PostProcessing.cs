@@ -19,7 +19,7 @@ public class PostProcessing : MonoBehaviour
             SoundManager.PlaySound(SoundManager.Sound.StartLevel);
         }
 
-        StartCoroutine(DistortLensEntrance2(.5f));
+        StartCoroutine(DistortLensEntrance(.5f));
     }
 
     public void BendScreen(float duration)
@@ -50,7 +50,7 @@ public class PostProcessing : MonoBehaviour
     public void LensDistortion(float duration)
     {
         SoundManager.PlaySound(SoundManager.Sound.ExitLevel);
-        FindObjectOfType<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+        GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
         StartCoroutine(DistortLensExit(duration));
     }
 
@@ -58,7 +58,6 @@ public class PostProcessing : MonoBehaviour
     {
         SoundManager.PlaySound(SoundManager.Sound.ExitLevel);
         StartCoroutine(DistortLensExit(duration));
-        //StartCoroutine(MainMenuFade());
     }
 
     private IEnumerator DistortLensExit(float duration)
@@ -78,30 +77,7 @@ public class PostProcessing : MonoBehaviour
         }
     }
 
-    private IEnumerator DistortLensEntrance(float duration)
-    {
-        float time = 0;
-        float distortionAmount = -100f;
-        float scaleAmount = .01f;
-
-        lensDistortion.scale.value = scaleAmount;
-        lensDistortion.intensity.value = distortionAmount;
-
-        while (time < duration)
-        {
-            lensDistortion.intensity.value = distortionAmount + ((time / duration) * 65);
-
-            lensDistortion.scale.value = scaleAmount + (time / duration);
-
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        lensDistortion.intensity.value = -35f;
-        lensDistortion.scale.value = 1f;
-    }
-
-    IEnumerator DistortLensEntrance2(float duration)
+    IEnumerator DistortLensEntrance(float duration)
     {
         float time = duration;
         float distortionAmount = -35f;

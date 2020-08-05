@@ -25,7 +25,7 @@ public class ExitButton : MonoBehaviour
 
         gameObject.GetComponent<UnityEngine.UI.Button>().interactable = false;
 
-        postProcessor.LensDistortion(1);
+        postProcessor.LensDistortionMainMenu(1);
         postProcessor.BendScreen(.75f);
 
         StartCoroutine("FadeScreen");
