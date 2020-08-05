@@ -98,12 +98,16 @@ public class PlayerController : MonoBehaviour
         {
             if (!isPaused)
             {
+                SoundManager.PlaySound(SoundManager.Sound.UISound);
+
                 pausePanel.SetActive(true);
                 Time.timeScale = 0;
                 isPaused = true;
             }
             else
             {
+                SoundManager.PlaySound(SoundManager.Sound.UISoundReverse);
+
                 pausePanel.SetActive(false);
                 Time.timeScale = 1;
                 isPaused = false;
@@ -142,6 +146,8 @@ public class PlayerController : MonoBehaviour
             }
             isJumping = true;
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
+
+            SoundManager.PlaySound(SoundManager.Sound.JumpSound);
         }
     }
     
@@ -186,6 +192,8 @@ public class PlayerController : MonoBehaviour
         playerParticles.Play();
         cameraShaker.ShakeCamera(0.2f, .15f);
         postProcessor.BendScreen(0.2f);
+
+        SoundManager.PlaySound(SoundManager.Sound.DeathSound);
     }
 
     public void CreateClone(Vector3 initialPosition)
@@ -209,6 +217,8 @@ public class PlayerController : MonoBehaviour
             postProcessor.BendScreen(.75f);
             postProcessor.LensDistortion(1);
 
+            SoundManager.PlaySound(SoundManager.Sound.WinSound);
+
             // Win, unlock the next level
             collision.gameObject.GetComponent<Portal>().EnterPortal();
         }
@@ -222,6 +232,10 @@ public class PlayerController : MonoBehaviour
         {
             positions.Add(new Vector3(-100, 0, 0));
             timer.RestartLevelNewClone(false);
+        }
+        else if(collision.gameObject.layer == 11)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.DoorSound);
         }
     }
 
@@ -239,6 +253,7 @@ public class PlayerController : MonoBehaviour
         // Button
         if(collision.gameObject.layer == 11)
         {
+            SoundManager.PlaySound(SoundManager.Sound.DoorSound);
             collision.gameObject.GetComponent<Button>().UnpushButton();
         }
         else if(collision.gameObject.layer == 12)

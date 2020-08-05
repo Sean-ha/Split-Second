@@ -15,6 +15,8 @@ public class PausePanel : MonoBehaviour
     // Called when the restart button is pressed
     public void OnRestartButton()
     {
+        SoundManager.PlaySound(SoundManager.Sound.UISound);
+
         Time.timeScale = 1;
         // Destroys all clones
         CloneMovement[] allClones = FindObjectsOfType<CloneMovement>();
@@ -27,5 +29,12 @@ public class PausePanel : MonoBehaviour
 
         timer.RestartLevelNewClone(false);
         gameObject.SetActive(false);
+    }
+
+    // Called when the exit button is pressed
+    public void OnExitButton()
+    {
+        SoundManager.PlaySound(SoundManager.Sound.UISound);
+
     }
 }

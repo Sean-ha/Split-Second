@@ -29,6 +29,7 @@ public class Timer : MonoBehaviour
 
     private void CountDown()
     {
+        SoundManager.PlaySound(SoundManager.Sound.ClockTick);
         if(timerNum == 6)
         {
             PlayerController.SetCanMove(true);

@@ -8,9 +8,7 @@ public class Button : MonoBehaviour
 
     public void PushButton()
     {
-        // Play sound for opening door
-
-        foreach(GameObject door in doorsToOpen)
+        foreach (GameObject door in doorsToOpen)
         {
             door.SetActive(false);
         }
@@ -18,9 +16,7 @@ public class Button : MonoBehaviour
 
     public void UnpushButton()
     {
-        // Play sound for closing door
-
-        foreach(GameObject door in doorsToOpen)
+        foreach (GameObject door in doorsToOpen)
         {
             door.SetActive(true);
         }

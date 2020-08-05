@@ -13,6 +13,8 @@ public class PostProcessing : MonoBehaviour
         chromaticAberration = GetComponent<PostProcessVolume>().profile.GetSetting<ChromaticAberration>();
         lensDistortion = GetComponent<PostProcessVolume>().profile.GetSetting<LensDistortion>();
 
+        SoundManager.PlaySound(SoundManager.Sound.StartLevel);
+
         StartCoroutine(DistortLensEntrance2(.5f));
     }
 
@@ -43,6 +45,8 @@ public class PostProcessing : MonoBehaviour
 
     public void LensDistortion(float duration)
     {
+        SoundManager.PlaySound(SoundManager.Sound.ExitLevel);
+        FindObjectOfType<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
         StartCoroutine(DistortLensExit(duration));
     }
 

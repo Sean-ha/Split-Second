@@ -43,6 +43,14 @@ public class CloneMovement : MonoBehaviour
         canMove = value;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 11)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.DoorSound);
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 11)
@@ -55,6 +63,7 @@ public class CloneMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == 11)
         {
+            SoundManager.PlaySound(SoundManager.Sound.DoorSound);
             collision.gameObject.GetComponent<Button>().UnpushButton();
         }
     }
