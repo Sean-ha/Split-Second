@@ -484,6 +484,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d9341eb020c2ad44b6379369949fadf, type: 3}
+--- !u!20 &468586899 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5514474356711337535, guid: 1d9341eb020c2ad44b6379369949fadf,
+    type: 3}
+  m_PrefabInstance: {fileID: 468586898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &485379612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2766,6 +2772,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7411035549296531630, guid: 259a41d95b1957e44920c53d4495451f,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 468586899}
     - target: {fileID: 7411035549296531633, guid: 259a41d95b1957e44920c53d4495451f,
         type: 3}
       propertyPath: m_Name

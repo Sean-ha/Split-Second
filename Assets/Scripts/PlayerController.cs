@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canMove)
+        if(canMove && doneFirstMove)
         {
             RecordPosition();
         }
