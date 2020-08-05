@@ -21,6 +21,8 @@ public class Portal : MonoBehaviour
 
     IEnumerator FadeScreen()
     {
+        PlayerPrefs.SetInt("CurrentLevel", levelToEnter);
+
         yield return new WaitForSeconds(1.5f);
 
         fader.gameObject.SetActive(true);
@@ -31,7 +33,7 @@ public class Portal : MonoBehaviour
         fader.FullFadeIn();
 
         yield return new WaitForSeconds(0.75f);
-
-        SceneManager.LoadScene(levelToEnter - 1);
+       
+        SceneManager.LoadScene(levelToEnter);
     }
 }

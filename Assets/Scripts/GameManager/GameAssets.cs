@@ -20,6 +20,9 @@ public class GameAssets : MonoBehaviour
 
     public SoundAudioClip[] soundAudioClips;
 
+    public float sfxVolume;
+    public float bgmVolume;
+
     [System.Serializable]
     public class SoundAudioClip
     {

@@ -21,6 +21,10 @@ public static class SoundManager
     {
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+
+        // Set volume of sfx here
+        // audioSource.volume = 
+
         audioSource.PlayOneShot(GetAudioClip(sound));
 
         GameObject.Destroy(soundGameObject, 5);

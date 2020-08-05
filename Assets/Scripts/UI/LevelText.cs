@@ -8,6 +8,6 @@ public class LevelText : MonoBehaviour
 {
     private void Awake()
     {
-        GetComponent<Text>().text = "LEVEL " + (SceneManager.GetActiveScene().buildIndex + 1).ToString();
+        GetComponent<Text>().text = "LEVEL " + SceneManager.GetActiveScene().buildIndex.ToString();
     }
 }

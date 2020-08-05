@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class PostProcessing : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class PostProcessing : MonoBehaviour
         chromaticAberration = GetComponent<PostProcessVolume>().profile.GetSetting<ChromaticAberration>();
         lensDistortion = GetComponent<PostProcessVolume>().profile.GetSetting<LensDistortion>();
 
-        SoundManager.PlaySound(SoundManager.Sound.StartLevel);
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.StartLevel);
+        }
 
         StartCoroutine(DistortLensEntrance2(.5f));
     }
