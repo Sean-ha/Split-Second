@@ -30,11 +30,4 @@ public class PausePanel : MonoBehaviour
         timer.RestartLevelNewClone(false);
         gameObject.SetActive(false);
     }
-
-    // Called when the exit button is pressed
-    public void OnExitButton()
-    {
-        SoundManager.PlaySound(SoundManager.Sound.UISound);
-
-    }
 }

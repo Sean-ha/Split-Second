@@ -138,6 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1240823157018113965}
+  - component: {fileID: 6626479891036812555}
   - component: {fileID: 6901572481634522907}
   - component: {fileID: 5500098123057793506}
   - component: {fileID: 4897982605457088849}
@@ -167,6 +168,18 @@ RectTransform:
   m_AnchoredPosition: {x: -200, y: -56.135}
   m_SizeDelta: {x: 224.54065, y: 112.270325}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6626479891036812555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756687873948808083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d691c34bd06b1a44588cb7143fa584a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &6901572481634522907
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -247,8 +260,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7755196727540232314}
-        m_MethodName: OnExitButton
+      - m_Target: {fileID: 6626479891036812555}
+        m_MethodName: OnExitButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

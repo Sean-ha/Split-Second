@@ -54,6 +54,13 @@ public class PostProcessing : MonoBehaviour
         StartCoroutine(DistortLensExit(duration));
     }
 
+    public void LensDistortionMainMenu(float duration)
+    {
+        SoundManager.PlaySound(SoundManager.Sound.ExitLevel);
+        StartCoroutine(DistortLensExit(duration));
+        //StartCoroutine(MainMenuFade());
+    }
+
     private IEnumerator DistortLensExit(float duration)
     {
         float time = 0;
@@ -112,4 +119,5 @@ public class PostProcessing : MonoBehaviour
         lensDistortion.intensity.value = -35f;
         lensDistortion.scale.value = 1f;
     }
+
 }

@@ -73,6 +73,27 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            // If the user presses escape, it pauses the game.
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!isPaused)
+                {
+                    SoundManager.PlaySound(SoundManager.Sound.UISound);
+
+                    pausePanel.SetActive(true);
+                    Time.timeScale = 0;
+                    isPaused = true;
+                }
+                else
+                {
+                    SoundManager.PlaySound(SoundManager.Sound.UISoundReverse);
+
+                    pausePanel.SetActive(false);
+                    Time.timeScale = 1;
+                    isPaused = false;
+                }
+            }
+
             bool grounded = IsGrounded();
 
             if(grounded || (!isJumping && jumpHelpTimer > 0))
@@ -91,26 +112,6 @@ public class PlayerController : MonoBehaviour
             {
                 positions.Add(new Vector3(-100, 0, 0));
                 timer.RestartLevelNewClone(false);
-            }
-        }
-        // If the user presses escape, it pauses the game.
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!isPaused)
-            {
-                SoundManager.PlaySound(SoundManager.Sound.UISound);
-
-                pausePanel.SetActive(true);
-                Time.timeScale = 0;
-                isPaused = true;
-            }
-            else
-            {
-                SoundManager.PlaySound(SoundManager.Sound.UISoundReverse);
-
-                pausePanel.SetActive(false);
-                Time.timeScale = 1;
-                isPaused = false;
             }
         }
     }

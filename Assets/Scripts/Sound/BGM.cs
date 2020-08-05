@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class BGM : MonoBehaviour
 {
-    void Start()
+    private static BGM instance;
+
+    void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
