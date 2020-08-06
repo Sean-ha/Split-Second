@@ -23,7 +23,7 @@ public static class SoundManager
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
 
         // Set volume of sfx here
-        // audioSource.volume = 
+        audioSource.volume = PlayerPrefs.GetFloat("SFXVolume", 75);
 
         audioSource.PlayOneShot(GetAudioClip(sound));
 

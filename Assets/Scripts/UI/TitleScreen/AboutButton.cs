@@ -15,7 +15,7 @@ public class AboutButton : MonoBehaviour
 
     public void OnCloseButtonClick()
     {
-        SoundManager.PlaySound(SoundManager.Sound.UISound);
+        SoundManager.PlaySound(SoundManager.Sound.UISoundReverse);
 
         aboutPanel.SetActive(false);
     }
