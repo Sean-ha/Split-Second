@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     public static bool isPaused;
     private static bool doneFirstMove;
+    private bool isDead;
 
     private float jumpHelpTimer;
 
@@ -60,6 +61,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(isDead)
+        {
+            positions.Add(new Vector3(-100, 0, 0));
+            timer.RestartLevelNewClone(false);
+            isDead = false;
+        }
         if(canMove)
         {
             float horizontalDirection = Input.GetAxisRaw("Horizontal");
@@ -231,8 +238,7 @@ public class PlayerController : MonoBehaviour
         // Any object that kills you
         else if(collision.gameObject.layer == 13)
         {
-            positions.Add(new Vector3(-100, 0, 0));
-            timer.RestartLevelNewClone(false);
+            isDead = true;
         }
         else if(collision.gameObject.layer == 11)
         {
