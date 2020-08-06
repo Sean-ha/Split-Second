@@ -23,13 +23,13 @@ public class OneSecondTimer : MonoBehaviour
     IEnumerator TimerCountDown()
     {
         float startTime = Time.time;
-        float time = 1;
+        float time = .5f;
 
-        while(Time.time - startTime <= 1)
+        while(Time.time - startTime <= .5f)
         {
             time -= Time.deltaTime;
 
-            timerImage.fillAmount = time;
+            timerImage.fillAmount = time / .5f;
             yield return null;
         }
         timerImage.enabled = false;
