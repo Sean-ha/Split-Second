@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
     // Checks if the user is grounded. Called every frame.
     private bool IsGrounded()
     {
-        Collider2D overlap = Physics2D.OverlapBox(overlapBoxTransform.position, new Vector2(0.25f, 0.02f), 0f, 
+        Collider2D overlap = Physics2D.OverlapBox(overlapBoxTransform.position, new Vector2(0.3f, 0.02f), 0f, 
             whatIsGround);
 
         if(overlap != null)
