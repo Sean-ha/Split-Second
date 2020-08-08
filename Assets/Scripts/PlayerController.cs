@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public static bool isPaused;
     private static bool doneFirstMove;
     private bool isDead;
+    private bool finalLevel;
 
     private float jumpHelpTimer;
 
@@ -49,6 +51,15 @@ public class PlayerController : MonoBehaviour
         victoryParticles = transform.Find("VictoryParticles").GetComponent<ParticleSystem>();
 
         jumpHelpTimer = 0.07f;
+
+        if (SceneManager.GetActiveScene().buildIndex == 17)
+        {
+            finalLevel = true;
+        }
+        else
+        {
+            finalLevel = false;
+        }
     }
 
     private void FixedUpdate()
@@ -67,7 +78,7 @@ public class PlayerController : MonoBehaviour
             timer.RestartLevelNewClone(false);
             isDead = false;
         }
-        if(canMove)
+        if(canMove || finalLevel)
         {
             float horizontalDirection = Input.GetAxisRaw("Horizontal");
 
@@ -75,8 +86,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (!doneFirstMove)
                 {
-                    doneFirstMove = true;
-                    timer.BeginCountDown();
+                    if(!finalLevel)
+                    {
+                        doneFirstMove = true;
+                        timer.BeginCountDown();
+                    }
                 }
             }
 
@@ -149,8 +163,11 @@ public class PlayerController : MonoBehaviour
         {
             if(!doneFirstMove)
             {
-                doneFirstMove = true;
-                timer.BeginCountDown();
+                if(!finalLevel)
+                {
+                    doneFirstMove = true;
+                    timer.BeginCountDown();
+                }
             }
             isJumping = true;
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
@@ -218,7 +235,10 @@ public class PlayerController : MonoBehaviour
             rigidBody.velocity = Vector2.zero;
             rigidBody.isKinematic = true;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            timer.StopTimer();
+            if(!finalLevel)
+            {
+                timer.StopTimer();
+            }
             victoryParticles.Play();
 
             cameraShaker.ShakeCamera(.75f, .15f);

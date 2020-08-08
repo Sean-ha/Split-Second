@@ -21,7 +21,14 @@ public class Portal : MonoBehaviour
 
     IEnumerator FadeScreen()
     {
-        PlayerPrefs.SetInt("CurrentLevel", levelToEnter);
+        if(levelToEnter != 0)
+        {
+            PlayerPrefs.SetInt("CurrentLevel", levelToEnter);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("CurrentLevel", SceneManager.GetActiveScene().buildIndex);
+        }
 
         yield return new WaitForSeconds(1.5f);
 

@@ -67,8 +67,7 @@ public class PostProcessing : MonoBehaviour
 
         while (time < duration)
         {
-            // distortionAmount -= (time / duration) * 65;
-            lensDistortion.intensity.value = distortionAmount - (time / duration) * 65;
+            lensDistortion.intensity.value = distortionAmount - (time / duration) * 60;
 
             lensDistortion.scale.value = 1 - (time / duration);
 
