@@ -1,4 +1,4 @@
-# Brackeys-Game-Jam-REWIND
+# Split Second
  "Split Second" is my entry for the Brackeys 2020.2 Game Jam with the theme of "Rewind."
 
 The Brackeys 2020.2 Game Jam took place between August 1 to August 7, 2020. The goal is to create an entire game from scratch within the given time frame of one week that also fits the given theme (Rewind). Split Second was developed using the Unity Engine. 
