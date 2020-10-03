@@ -5,8 +5,6 @@ The Brackeys 2020.2 Game Jam took place between August 1 to August 7, 2020. The 
 
 If you wish to play the game, you can play it in your browser here: https://seansroom.itch.io/split-second
 
-Alternatively, you may download the file corresponding to your OS in the "Executable" folder of this project and play it that way.
-
 How to Play:
 
 -You get 5 seconds to reach the portal.
